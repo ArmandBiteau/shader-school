@@ -20,7 +20,6 @@ void main() {
   gl_Position.xy -= vec2(0.5);
   gl_Position.xy *= vec2(1.75);
   gl_Position.x *= screenSize.y / screenSize.x;
-  // gl_Position.xy -= vec2(0.5);
 
   gl_Position.zw = vec2(1.0);
 }
