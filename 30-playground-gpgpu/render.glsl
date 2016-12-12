@@ -7,5 +7,5 @@ uniform bool mouseDown[3];        //Test if mouse left, right, middle is down
 uniform float time;               //Time since start
 
 void main() {
-  gl_FragColor = vec4(texture2D(state[0], gl_FragCoord.xy / screenSize).rgb, 1.0);
+  gl_FragColor = texture2D(state[0], gl_FragCoord.xy / screenSize);
 }

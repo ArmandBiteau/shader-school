@@ -7,21 +7,37 @@ uniform bvec3 mouseDown;        //Test if mouse left, right, middle is down
 uniform float time;               //Time since start
 
 void main() {
-  vec3 paintColor = vec3(0,0,0);
 
-  //Paint colors depending on mouse state
-  float w = exp2(-0.05 * distance(gl_FragCoord.xy, mousePosition));
-  if(mouseDown.x) {
-    paintColor.r = w;
-  }
-  if(mouseDown.y) {
-    paintColor.g = w;
-  }
-  if(mouseDown.z) {
-    paintColor.b = w;
-  }
+    vec4 paintColor = vec4(0, 0, 0, 0);
 
-  //Write out texture 
-  vec2 texCoord = gl_FragCoord.xy / screenSize;
-  gl_FragColor = texture2D(state[0], texCoord) + vec4(paintColor, 0.0);
+    // left click
+    if (mouseDown.x) {
+
+        float r = exp2(-0.4 * distance(gl_FragCoord.xy, mousePosition));
+        float g = exp2(-0.2 * distance(gl_FragCoord.xy, mousePosition));
+        float b = exp2(-0.3 * distance(gl_FragCoord.xy, mousePosition));
+
+        // float a = sin(time * 1.0);
+
+        paintColor = vec4(r, g, b, 1.0);
+
+    }
+
+    // right click
+    if (mouseDown.y) {
+        float g = exp2(-0.2 * distance(gl_FragCoord.xy, mousePosition));
+        paintColor.g = g;
+    }
+
+    // middle click
+    if (mouseDown.z) {
+        float b = exp2(-0.6 * distance(gl_FragCoord.xy, mousePosition));
+        paintColor.b = b;
+    }
+
+    //Write out texture
+    vec2 texCoord = gl_FragCoord.xy / screenSize;
+
+    gl_FragColor = texture2D(state[0], texCoord) + vec4(paintColor);
+
 }
